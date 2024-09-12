@@ -14,24 +14,7 @@ const LoginModal = () => {
   const { setSignupModal, loginModal, setloginModal ,handleClickOutside} = useContext(UserContext);
 
   const redirect = useRouter()
-  // console.log('it will call in login modal ')
-  if (!loginModal) return null;
-  // const authToken = Cookies.get('authToken');
-  // if(authToken){
-  //   // console.warn(authToken, 'it means user has already logged in cant access modal again');
-  //   toast.error("You are already login !! ")
-  //   setloginModal(false)
-
-  //   // setSignupModal(false)
-  // }
-
-  // if(!authToken){
-  //   // console.warn(authToken, 'user is not logged in ');
-  //   setloginModal(true)
-  //   // redirect.push('/show-task')
-  //   // setSignupModal(true)
-  // }
-
+ 
 
   const [loginuser,setLoginUser] = useState({
   
