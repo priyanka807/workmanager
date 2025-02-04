@@ -20,8 +20,7 @@ export default function Navbar() {
   const authToken = Cookies.get('authToken');
   const pathname = usePathname();
   const router = useRouter();
-  // console.warn(pathname,'..................router.pathname')
-  // Automatically set the active item based on the current pathname
+
   useEffect(() => {
 
     if (pathname === "/") {
@@ -37,7 +36,7 @@ export default function Navbar() {
 
   }, [pathname]);
 
-  // Handle navigation with login check
+ 
   const handleNavItems = ( event,navItems) => {
     event.preventDefault();
     setActiveItem(navItems);
@@ -53,15 +52,11 @@ export default function Navbar() {
     
     }
       else{
-      // router.push(`/${navItems.toLowerCase().replace(" ","-")}`)
       if (!authToken) {
         toast.error(`Please login to access ${navItems} page`);
-        // setloginModal(true);
-        // router.push(`/${navItems.toLowerCase().replace(" ","-")}`) 
-        // Open login modal
+        
       } else {
-        // User is logged in, proceed with navigation
-        // setActiveItem(itemName);
+        
         router.push(`/${navItems.toLowerCase().replace(" ","-")}`)
       } 
      
@@ -69,15 +64,6 @@ export default function Navbar() {
    
     }
 
- 
-    // if (!authToken) {
-    //   toast.error(`Please login to access ${itemName}`);
-    //   setloginModal(true); // Open login modal
-    // } else {
-    //   // User is logged in, proceed with navigation
-    //   setActiveItem(itemName);
-    //   router.push(path);
-    // }
   };
 
   const handleLogout = async () => {
@@ -162,7 +148,7 @@ function handleShowTask(){
             <DisclosureButton
               as="a"
               href="/"
-              onClick={(e) => { handleProtectedNav('Home', '/', e); }}
+              onClick={(e) =>handleNavItems(e,'Home')}
               className={`bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeItem === 'Home' ? 'bg-gray-700 text-white' : ''}`}
             >
               Home
@@ -170,7 +156,7 @@ function handleShowTask(){
 
             <DisclosureButton
               as="a"
-              onClick={(e) => { handleProtectedNav('Add Task', '/add-task', e); }}
+              onClick={(e) =>handleNavItems(e,'Add Task')}
               className={`bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeItem === 'Add Task' ? 'bg-gray-700 text-white' : ''}`}
             >
               Add Task
@@ -178,7 +164,7 @@ function handleShowTask(){
 
             <DisclosureButton
               as="a"
-              onClick={(e) => { handleProtectedNav('Show Task', '/show-task', e); }}
+              onClick={(e) =>{handleNavItems(e,'Show Task'),handleShowTask()}}
               className={`bg-gray-900 text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeItem === 'Show Task' ? 'bg-gray-700 text-white' : ''}`}
             >
               Show Task

@@ -5,13 +5,13 @@ import { User } from "@/models/user";
 
 connectDb()
 export  async function GET(request){
-
     try{
         const token = request.cookies.get("authToken")?.value
-      
+      console.log(token,'token')
         const userData = jwt.verify(token,process.env.jwt_token)
+        console.log(userData,'userData')
         const user =await User.findById(userData._id).select("-password")
-        // console.log(user,'due to await user')
+       
         
         return NextResponse.json({message:user,token:token},{status:200})
     }catch(error){

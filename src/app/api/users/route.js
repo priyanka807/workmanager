@@ -7,8 +7,6 @@ import { NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
 
 
-//url variable , body , query params
-
 connectDb()
 const users = [{name:'priyanka',email:'pk796395@gmail.com',phone:'9773583040',message:'paperbag'},
     {name:'harpareet',email:'aashwaani@gmail.com',phone:'9658741258',message:'slitting'},
@@ -30,12 +28,13 @@ export async function GET(request){
 export async function  POST(request){
 
   const {name,email,phone,yourrequirement,password} =await  request.json()
-
+  console.log(name,email,phone,yourrequirement,password,'name,email,phone,yourrequirement,password')
 
 const user = new User({
     name,email,phone,yourrequirement,password
 })
-console.log(email,'email email')
+console.log(user,'value is not putting inside this')
+
   try{
     // if(!name||!email||!phone||!password||!yourrequirement){
     //   throw new Error("All fields are required. Please fill them in")
@@ -63,7 +62,7 @@ console.log(email,'email email')
     const response = NextResponse.json(user,{status:200})
     return response
   }catch(error){
-  
+  console.log(error,'error')
   return  NextResponse.json({message:error.message,status:false},{status:500})
   }
 

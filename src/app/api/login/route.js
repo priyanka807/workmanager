@@ -24,6 +24,7 @@ export async function POST(request) {
 
     try {
         const user = await User.findOne({ email });
+        console.log(user,'user')
         if (!user) {
             throw new Error("User Not Found");
         }
@@ -36,23 +37,24 @@ export async function POST(request) {
         const token = jwt.sign({ _id: user._id }, process.env.jwt_token, {
             expiresIn: '1d'  
         });
-        const response = NextResponse.json({ message: "Logged Success !!", status: true });
         
-        // Set the cookie with correct attributes
+        const response = NextResponse.json({ token: token, status: true });
+      
         response.cookies.set("authToken", token, {
-            maxAge: 24 * 60 * 60, // 1 day in seconds
-            httpOnly: false,      // Allows client-side JavaScript to access the cookie
-            path: '/'             // Cookie available throughout the site
+            maxAge: 24 * 60 * 60, 
+            httpOnly: false,      
+            path: '/'        
         });
-        response.cookies.set("authToken", token);
+      
 
         
-        const login = new LoginUser({ email, password });
+        const login = new LoginUser({ email, password,token:token });
+        console.log(login,'can we send token here also')
         await login.save();
 
         return response
     } catch (error) {
-        console.log(error, 'login error');
+        // console.log(error, 'login error');
         return NextResponse.json({ message: error.message, status: false }, { status: 500 });
     }
 }

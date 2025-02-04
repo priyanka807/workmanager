@@ -45,7 +45,7 @@ try {
 
 }catch(error){
   
-    console.log(error,'task error ')
+    // console.log(error,'task error ')
    
 // return getResponseMessage("Error in creating data",false,500,)
 return  NextResponse.json({message:"Error in creating data !! ",status:false},{status:500})
